@@ -1,3 +1,5 @@
 node_modules
 .env
 package-lock.json
+config.env
+npm-debug.log

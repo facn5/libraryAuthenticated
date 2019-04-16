@@ -1,7 +1,9 @@
 const fs = require("fs");
 const path = require("path");
+const querystring = require("querystring");
 const getBooks = require("./queries/getBooks");
-
+const createUser = require("./queries/createUser");
+const utils = require('./utils');
 const serverError = "500 server error";
 
 const exType = {
@@ -54,14 +56,42 @@ const handleGetBooks = res => {
       res.end(serverError);
     } else {
       let dynamicData = JSON.stringify(result);
-      res.writeHead(200, extType.json);
+      res.writeHead(200, exType.json);
       res.end(dynamicData);
     }
   });
 };
 
+const handleCreateUser = (req, res) => {
+  let body = "";
+  req.on("data", chunk => {
+    body += chunk.toString();
+  });
+  req.on("end", () => {
+    if (body != null) {
+      const parse = querystring.parse(body);
+
+
+      utils.hash(parse.password, ( err, hash) => {
+        createUser(parse.name, parse.username, hash, (err, result) => {
+          if (err) return err;
+          else {
+            res.writeHead(302, { location: "/" });
+            res.end();
+          }
+        });
+      })
+
+
+    }
+  });
+};
+
+
+
 module.exports = {
   page: handlePage,
   file: handlePublic,
-  getbooks: handleGetBooks
+  getbooks: handleGetBooks,
+  createUser: handleCreateUser
 };
