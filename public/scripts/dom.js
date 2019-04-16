@@ -1,4 +1,9 @@
-
+function toSignup() {
+  location.href = "/signup"
+}
+function toLogin() {
+  location.href = "/"
+}
 // getBooks(updatedom);
 
 function updatedom( data ) {
