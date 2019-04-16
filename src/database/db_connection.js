@@ -7,7 +7,7 @@ if (!process.env.DATABASE_URL) {
   throw new Error('Environment variable DATABASE_URL must be set');
 }
 
-var testmode = true;
+var testmode = false;
 let params;
 
 if( testmode )
