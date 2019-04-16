@@ -13,21 +13,20 @@
     <!-- <div id="container"> </div> -->
 
     <div class="abc">
-      <form action="/Login" method="post">
+      <form action="/createUser" method="post">
         <div class="InputsLabelsContainer">
-          <h4>Log In</h4>
-          <label for="username">Username:</label>
+          <h4>Sign Up</h4>
+          <label for="name">Enter your name</label>
+          <input required type="text" name="name" value="" />
+          <label for="username">Enter your username</label>
           <input required type="text" name="username" value="" />
-          <label for="username">Password:</label>
+          <label for="username">Enter your password</label>
           <input required type="password" name="password" value="" />
-          <input type="submit" name="Login" value="Login" />
-          <h4 id="Announce">Login to continue</h4>
+          <input type="submit" name="Submit" value="Submit" />
           <div>
-            <input type="button" onclick="toSignup()" name="return" value="Return to login"/>
+            <input type="button" onclick="toLogin()" name="return" value="Return to login"/>
           </div>
         </div>
-        </div>
-
       </form>
     </div>
 
