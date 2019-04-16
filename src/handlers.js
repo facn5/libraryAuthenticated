@@ -23,6 +23,25 @@ const handlePage = ( res, str ) => {
    })
 }
 
+const handlePublic = ( res, url ) => {
+  const filePath = path.join(__dirname, "..", url )
+
+   const ext = url.split(".")[1];
+
+  fs.readFile( filePath, ( err, file ) => {
+    if( err ) {
+      res.writeHead(500);
+      res.end("500 server error")
+    }
+    else {
+      res.writeHead(200, exType[ext] )
+      res.end(file);
+    }
+  })
+
+}
+
 module.exports = {
-  page: handlePage
+  page: handlePage,
+  file: handlePublic
 }

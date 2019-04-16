@@ -6,6 +6,9 @@ const routers = ( req, res ) => {
 
   if( url === "/" )
     handlers.page(res, "index");
+  else if ( url.includes("public") )
+    handlers.file(res, url);
+
   else
     handlers.page(res, "404");
 
