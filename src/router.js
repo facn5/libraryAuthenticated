@@ -14,6 +14,8 @@ const routers = ( req, res ) => {
     handlers.getbooks( res );
   else if ( url === "/createUser" && req.method === "POST")
     handlers.createUser( req, res );
+  else if ( url === "/login" && req.method === "POST")
+   handlers.login( req, res );
   else
     handlers.page(res, "404");
 
