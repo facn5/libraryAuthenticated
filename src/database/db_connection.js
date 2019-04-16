@@ -7,7 +7,13 @@ if (!process.env.DATABASE_URL) {
   throw new Error('Environment variable DATABASE_URL must be set');
 }
 
-const params = url.parse(process.env.DATABASE_URL);
+var testmode = false;
+let params;
+
+if( testmode )
+    params = url.parse(process.env.HEROKU_POSTGRESQL_ORANGE_URL);
+else
+    params = url.parse(process.env.DATABASE_URL);
 
 const [username, password] = params.auth.split(":");
 
