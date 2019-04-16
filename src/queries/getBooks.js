@@ -7,4 +7,4 @@ const getBooks = ( cb ) => {
   });
 }
 
-module.export = getBooks;
+module.exports = getBooks;
