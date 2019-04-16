@@ -8,7 +8,8 @@ const routers = ( req, res ) => {
     handlers.page(res, "index");
   else if ( url.includes("public") )
     handlers.file(res, url);
-
+  else if ( url === "/getbooks" && req.method === "GET" )
+    handlers.getbooks( res );
   else
     handlers.page(res, "404");
 
