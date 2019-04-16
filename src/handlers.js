@@ -3,6 +3,7 @@ const path = require("path");
 const querystring = require("querystring");
 const getBooks = require("./queries/getBooks");
 const createUser = require("./queries/createUser");
+const loginUser = require("./queries/loginUser");
 const utils = require('./utils');
 const serverError = "500 server error";
 
@@ -70,8 +71,6 @@ const handleCreateUser = (req, res) => {
   req.on("end", () => {
     if (body != null) {
       const parse = querystring.parse(body);
-
-
       utils.hash(parse.password, ( err, hash) => {
         createUser(parse.name, parse.username, hash, (err, result) => {
           if (err) return err;
@@ -87,11 +86,31 @@ const handleCreateUser = (req, res) => {
   });
 };
 
+const handleUserLogin = ( req, res ) => {
+  let body = "";
+  req.on("data", chunk => {
+    body += chunk.toString();
+  });
+  req.on("end", () => {
+    if (body != null) {
+      const parse = querystring.parse(body);
+        loginUser(parse.username, parse.password, (err, result) => {
+          if (err) console.log(err);
+          else {
+            res.writeHead(302, { location: "/" });
+            res.end();
+          }
+        });
 
+
+    }
+  });
+};
 
 module.exports = {
   page: handlePage,
   file: handlePublic,
   getbooks: handleGetBooks,
-  createUser: handleCreateUser
+  createUser: handleCreateUser,
+  login: handleUserLogin
 };
