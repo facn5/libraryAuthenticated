@@ -2,23 +2,21 @@ BEGIN;
 
 DROP TABLE IF EXISTS books CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
-CREATE TABLE if not exists books (
+CREATE TABLE IF NOT EXISTS books (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     author VARCHAR(100) NOT NULL,
     year INTEGER,
     shortDesc VARCHAR(1000) NOT NULL
-
 );
 
 
 
-CREATE TABLE if not exists users (
+CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
     name VARCHAR(100) NOT NULL,
-    password VARCHAR(1000),NOT NULL,
-
+    password VARCHAR(1000) NOT NULL,
     reservedBooks INTEGER
 );
 
@@ -34,3 +32,5 @@ INSERT INTO books (name, author, year, shortDesc) VALUES
     INSERT INTO users (name,username,password) VALUES
         ('John smith1','john','hashed'),
         ('Karam Ashqar','karam23223','hashed');
+
+COMMIT;
