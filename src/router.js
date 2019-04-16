@@ -8,8 +8,10 @@ const routers = ( req, res ) => {
     handlers.page(res, "index");
   else if ( url.includes("public") )
     handlers.file(res, url);
-  else if ( url === "/getbooks" && req.method === "GET" )
+  else if ( url === "/getBooks" && req.method === "GET" )
     handlers.getbooks( res );
+  else if ( url === "/createUser" && req.method === "POST")
+    handlers.createUser( req, res );
   else
     handlers.page(res, "404");
 
