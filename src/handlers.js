@@ -8,10 +8,18 @@ const utils = require('./utils');
 const serverError = "500 server error";
 
 const exType = {
-  html: { "Content-Type": "text/html" },
-  css: { "Content-Type": "text/css" },
-  js: { "Content-Type": "application/javascript" },
-  json: { "content-type": "application/json" }
+  html: {
+    "Content-Type": "text/html"
+  },
+  css: {
+    "Content-Type": "text/css"
+  },
+  js: {
+    "Content-Type": "application/javascript"
+  },
+  json: {
+    "content-type": "application/json"
+  }
 };
 
 const handlePage = (res, str) => {
@@ -64,29 +72,44 @@ const handleGetBooks = res => {
 };
 
 const handleCreateUser = (req, res) => {
+  // console.log("###### res start ###########");
+  // console.log(res);
+  // console.log("###### res end ###########");
   let body = "";
   req.on("data", chunk => {
     body += chunk.toString();
   });
+
   req.on("end", () => {
     if (body != null) {
       const parse = querystring.parse(body);
-      utils.hash(parse.password, ( err, hash) => {
+      utils.hash(parse.password, (err, hash) => {
         createUser(parse.name, parse.username, hash, (err, result) => {
-          if (err) return err;
-          else {
-            res.writeHead(302, { location: "/" });
+
+          if (err) {
+            if (err.message === "username_exist") {
+              // console.log(res);
+              console.log(err.message);
+              res.writeHead(409, {
+                location: "/signup"
+              });
+              res.end("username Exist");
+            }
+            return err;
+          } else {
+            res.body
+            res.writeHead(302, {
+              location: "/"
+            });
             res.end();
           }
         });
       })
-
-
     }
   });
 };
 
-const handleUserLogin = ( req, res ) => {
+const handleUserLogin = (req, res) => {
   let body = "";
   req.on("data", chunk => {
     body += chunk.toString();
@@ -94,13 +117,15 @@ const handleUserLogin = ( req, res ) => {
   req.on("end", () => {
     if (body != null) {
       const parse = querystring.parse(body);
-        loginUser(parse.username, parse.password, (err, result) => {
-          if (err) console.log(err);
-          else {
-            res.writeHead(302, { location: "/" });
-            res.end();
-          }
-        });
+      loginUser(parse.username, parse.password, (err, result) => {
+        if (err) console.log(err);
+        else {
+          res.writeHead(302, {
+            location: "/"
+          });
+          res.end();
+        }
+      });
 
 
     }
