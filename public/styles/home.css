@@ -1,0 +1,27 @@
+body{
+  max-width: 90%;
+  text-align: center;
+}
+#books {
+  display: grid;
+  grid-template-columns: 20% 20% 20%;
+  grid-gap: 2% 2%;
+
+  justify-content: space-around;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.book {
+  border-radius: 10%;
+  background: #91a352;
+  text-align: center;
+  margin: 0 auto;
+  padding: 2%;
+}
+
+button {
+background: rgb(195, 167, 50);
+border: 4px;
+radius:30%;
+}

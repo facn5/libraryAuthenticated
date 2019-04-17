@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='shortcut icon' type='image/x-icon' href='public/assets/favicon.ico' />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../../public/styles/home.css">
+  <title>Home</title>
+</head>
+
+<body>
+  <h1>Welcome ${name}</h1>
+  <label for="searchInput">Looking for a book?</label>
+  <br>
+  <input type="text" name="searchInput" value="" placeholder="type...">
+  <input type="button" name="search" value="Search">
+  <button type="button" name="getBooks" onclick="getBooks()">Get books</button>
+  <div id="books">
+
+  </div>
+  <script type="text/javascript" src="../../public/scripts/dom.js"></script>
+  <script type="text/javascript" src="../../public/scripts/fetch.js"></script>
+</body>
+
+</html>

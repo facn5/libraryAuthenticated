@@ -9,14 +9,8 @@ const loginUser = (username, password, cb) => {
       else {
         bcrypt.compare(password, result.rows[0].password, function(err, res) {
           if (err) console.log("error");
-          else console.log(res);
-
-          cb(null, result);
+          cb(null, res);
         });
-
-        //
-        // console.log(password);
-        // console.log(result.rows[0].password);
       }
     }
   );
