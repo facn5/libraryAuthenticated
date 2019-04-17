@@ -12,11 +12,9 @@ dbConnection.query(
         if (result.rowCount !== 0)
         {
           cb(null,true)
-          console.log('true');
-}
+        }
         else {
           cb(null, false)
-          console.log('false');
 
         }
     }
