@@ -7,11 +7,21 @@ function toLogin() {
   location.href = "/"
 }
 
+document.getElementById('signUpBtn').addEventListener('click',function(e){
+  e.preventDefault()
+createUsers(function (data){
+  console.log(data);
+},document.getElementById('name').value,document.getElementById('username').value,document.getElementById('password').value)
+
+})
+
+
+
 if( document.cookie ) {
   // console.log(document.cookie.split("password=")[1]);
 
   checkCookies(function(res) {
-console.log(res+'h');
+
   },document.cookie.split("password=")[1] )
 
 }

@@ -13,16 +13,16 @@
     <!-- <div id="container"> </div> -->
 
     <div class="abc">
-      <form action="/createUser" method="post">
+      <form method="post">
         <div class="InputsLabelsContainer">
           <h4>Sign Up</h4>
           <label for="name">Enter your name</label>
-          <input required type="text" name="name" value="" />
+          <input required  id="name" type="text" name="name" value="" />
           <label for="username">Enter your username</label>
-          <input required type="text" name="username" value="" />
-          <label for="username">Enter your password</label>
-          <input required type="password" name="password" value="" />
-          <input type="submit" name="Submit" value="Submit" />
+          <input required id="username" type="text" name="username" value="" />
+          <label for="password">Enter your password</label>
+          <input required id="password" type="password" name="password" value="" />
+          <input type="submit" id="signUpBtn" name="Submit" value="Submit" />
           <div>
             <input type="button" onclick="toLogin()" name="return" value="Return to login"/>
           </div>

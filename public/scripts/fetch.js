@@ -55,3 +55,26 @@ function logIN(cb, username,password) {
     return error;
   });
 }
+
+
+function createUsers(cb, name ,username,password) {
+  fetch('/createUser', {
+        method: "POST",
+        mode: "cors",
+
+        headers: {
+            "Content-Type": "text/plain",
+            // "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: JSON.stringify({pass:password,user:username,name:name}) // body data type must match "Content-Type" header
+    })
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {
+      cb(JSON.stringify(data));
+    })
+  .catch(function(error) {
+    return error;
+  });
+}
