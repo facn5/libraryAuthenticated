@@ -72,9 +72,6 @@ const handleGetBooks = res => {
 };
 
 const handleCreateUser = (req, res) => {
-  // console.log("###### res start ###########");
-  // console.log(res);
-  // console.log("###### res end ###########");
   let body = "";
   req.on("data", chunk => {
     body += chunk.toString();
@@ -90,9 +87,7 @@ const handleCreateUser = (req, res) => {
             if (err.message === "username_exist") {
               // console.log(res);
               console.log(err.message);
-              res.writeHead(409, {
-                location: "/signup"
-              });
+              res.writeHead(409);
               res.end("username Exist");
             }
             return err;
@@ -120,14 +115,34 @@ const handleUserLogin = (req, res) => {
       loginUser(parse.username, parse.password, (err, result) => {
         if (err) console.log(err);
         else {
-          res.writeHead(302, {
-            location: "/"
-          });
-          res.end();
+          if (result) {
+            res.writeHead(302, {
+              location: "/home"
+            });
+            res.end();
+          }else{
+            res.writeHead(409);
+            res.end("Invalid username or password");
+          }
         }
       });
+    }
+  });
+};
 
 
+const handleHome = (res, url) => {
+  const filePath = path.join(__dirname, "..", url);
+
+  const ext = url.split(".")[1];
+
+  fs.readFile(filePath, (err, file) => {
+    if (err) {
+      res.writeHead(500);
+      res.end(serverError);
+    } else {
+      res.writeHead(200, exType[ext]);
+      res.end(file);
     }
   });
 };
@@ -137,5 +152,6 @@ module.exports = {
   file: handlePublic,
   getbooks: handleGetBooks,
   createUser: handleCreateUser,
-  login: handleUserLogin
+  login: handleUserLogin,
+  home: handleHome
 };
