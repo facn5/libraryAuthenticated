@@ -81,23 +81,20 @@ const handleCreateUser = (req, res) => {
 
   req.on("end", () => {
     if (body != null) {
-      const parse = querystring.parse(body);
-      utils.hash(parse.password, (err, hash) => {
-        createUser(parse.name, parse.username, hash, (err, result) => {
+      body = JSON.parse(JSON.parse(JSON.stringify(body)))
+      utils.hash(body.pass, (err, hash) => {
+        createUser(body.name, body.user, hash, (err, result) => {
           if (err) {
             if (err.message === "username_exist") {
               // console.log(res);
-              console.log(err.message);
-              res.writeHead(409);
-              res.end("username Exist");
+              res.end(JSON.stringify("Error"));
             }
             return err;
           } else {
-            res.body;
-            res.writeHead(302, {
-              location: "/"
-            });
-            res.end();
+            res.writeHead(302, [
+        ["Set-Cookie", "logged_in=true&username="+body.user]
+          ]);
+            res.end(JSON.stringify(result));
           }
         });
       });
@@ -112,27 +109,25 @@ const handleUserLogin = (req, res) => {
   });
   req.on("end", () => {
     if (body != null) {
-      const parse = querystring.parse(body);
+      //const parse = querystring.parse(body);
 
-      loginUser(parse.username, parse.password, (err, result) => {
-        if (err) console.log(err);
+body = JSON.parse(JSON.parse(JSON.stringify(body)));
+
+      loginUser(body.user, body.pass, (err, result) => {
+        if (err) {
+
+          res.writeHead(302, {location: "/"})
+          res.end()
+        }
         else {
-          if (result) {
+console.log(result);
+if( result == true) {
+          res.writeHead(302, [
+      ["Set-Cookie", "logged_in=true&username="+body.user]
+        ]);
+      }
+            res.end(result.toString());
 
-            const cryptoPass = utils.functions.sign(parse.password);
-
-            res.writeHead(302, [
-              ["location", "/home"],
-              ["Set-Cookie", "logged_in=true"],
-              [`Set-Cookie`, `username=${parse.username}`],
-              ['Set-Cookie', `password=${cryptoPass}`]
-            ]);
-
-            res.end();
-          } else {
-            res.writeHead(409);
-            res.end("Invalid username or password");
-          }
         }
       });
     }

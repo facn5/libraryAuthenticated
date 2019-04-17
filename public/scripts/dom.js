@@ -5,13 +5,69 @@ function toSignup() {
 function toLogin() {
   location.href = "/"
 }
-
 if (document.cookie) {
   checkCookies(function(res) {
     console.log(res + 'h');
   }, document.cookie.split("password=")[1])
 }
 const cookie = document.cookie;
+if (document.getElementById('signUpBtn')) {
+
+  document.getElementById('signUpBtn').addEventListener('click', function(e) {
+    e.preventDefault()
+    createUsers(function(data) {
+
+      if (data.indexOf('Done') !== -1) {
+        document.getElementById('Announce').innerText = "Signed up successfully";
+        document.getElementById('Announce').style.color = "green"
+
+        setTimeout(function() {
+          location.href = "/home"
+        }, 1500)
+      } else {
+        document.getElementById('Announce').innerText = "User already exists!";
+        document.getElementById('Announce').style.color = "red"
+      }
+
+    }, document.getElementById('name').value, document.getElementById('username').value, document.getElementById('password').value)
+
+  })
+
+}
+
+
+if (document.cookie) {
+  // console.log(document.cookie.split("password=")[1]);
+
+  checkCookies(function(res) {
+
+  }, document.cookie.split("password=")[1])
+
+}
+
+if (document.getElementById('loginBtn')) {
+
+  document.getElementById('loginBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    logIN(function(data) {
+
+      if (data === "true") {
+        document.getElementById('Announce').style.color = "green";
+        document.getElementById('Announce').innerText = "Logged in successfully"
+
+        setTimeout(function() {
+          location.href = "/home"
+        }, 1500)
+      } else {
+        document.getElementById('Announce').style.color = "red";
+        document.getElementById('Announce').innerText = "Invalid username/password"
+      }
+
+    }, document.getElementById('username').value, document.getElementById('password').value)
+  })
+}
+
 
 function updatedom(data) {
   let container = document.getElementById('books');
