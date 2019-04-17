@@ -32,3 +32,26 @@ function checkCookies(cb, pass) {
     return error;
   });
 }
+
+
+function logIN(cb, username,password) {
+  fetch('/login', {
+        method: "POST",
+        mode: "cors",
+ // *GET, POST, PUT, DELETE, etc.
+        headers: {
+            "Content-Type": "text/plain",
+            // "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: JSON.stringify({pass:password,user:username}) // body data type must match "Content-Type" header
+    })
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {
+      cb(JSON.stringify(data));
+    })
+  .catch(function(error) {
+    return error;
+  });
+}

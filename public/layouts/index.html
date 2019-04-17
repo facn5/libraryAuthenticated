@@ -14,14 +14,14 @@
 
 
     <div class="abc">
-      <form action="/login" method="post">
+      <form method="post">
         <div class="InputsLabelsContainer">
           <h4>Log In</h4>
           <label for="username">Username:</label>
-          <input required type="text" name="username" value="" />
+          <input id="username" required type="text" name="username" value="" />
           <label for="username">Password:</label>
-          <input required type="password" name="password" value="" />
-          <input type="submit" name="Login" value="Login" />
+          <input required id="password" type="password" name="password" value="" />
+          <input type="submit" id="loginBtn" name="Login" value="Login" />
           <h4 id="Announce">Login to continue</h4>
           <div>
             <input type="button" onclick="toSignup()" name="return" value="Sign Up"/>

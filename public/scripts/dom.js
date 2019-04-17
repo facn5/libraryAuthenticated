@@ -16,6 +16,29 @@ console.log(res+'h');
 
 }
 
+if( document.getElementById('loginBtn')) {
+
+document.getElementById('loginBtn').addEventListener('click', function(e) {
+  e.preventDefault();
+
+  logIN(function(data) {
+
+    if( data === "true" ) {
+      document.getElementById('Announce').style.color = "green";
+      document.getElementById('Announce').innerText = "Logged in successfully"
+
+      setTimeout( function() {
+        location.href = "/home"
+      },1500)
+    }
+    else {
+      document.getElementById('Announce').style.color = "red";
+      document.getElementById('Announce').innerText = "Invalid username/password"    }
+
+  }, document.getElementById('username').value, document.getElementById('password').value )
+})
+}
+
 
 function updatedom(data) {
   let container = document.getElementById('books');
