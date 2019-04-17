@@ -1,3 +1,4 @@
+
 function toSignup() {
   location.href = "/signup"
 }
@@ -6,7 +7,16 @@ function toLogin() {
   location.href = "/"
 }
 
-// getBooks(updatedom);
+if( document.cookie ) {
+  // console.log(document.cookie.split("password=")[1]);
+
+  checkCookies(function(res) {
+console.log(res+'h');
+  },document.cookie.split("password=")[1] )
+
+}
+
+
 function updatedom(data) {
   let container = document.getElementById('books');
   container.innerText="";
