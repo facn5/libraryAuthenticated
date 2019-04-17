@@ -89,10 +89,9 @@ const handleCreateUser = (req, res) => {
             }
             return err;
           } else {
-          res.writeHead(302, [
-      ["Set-Cookie", "logged_in=true"],
-      [`Set-Cookie`, `username=${body.user}`]
-        ]);
+            res.writeHead(302, [
+        ["Set-Cookie", "logged_in=true&username="+body.user]
+          ]);
             res.end(JSON.stringify(result));
           }
         });
@@ -119,11 +118,12 @@ body = JSON.parse(JSON.parse(JSON.stringify(body)));
           res.end()
         }
         else {
-
-            res.writeHead(302, [
-              ["Set-Cookie", "logged_in=true"],
-              [`Set-Cookie`, `username=${body.user}`]
-            ]);
+console.log(result);
+if( result == true) {
+          res.writeHead(302, [
+      ["Set-Cookie", "logged_in=true&username="+body.user]
+        ]);
+      }
             res.end(result.toString());
 
         }
