@@ -4,8 +4,10 @@ const querystring = require("querystring");
 const getBooks = require("./queries/getBooks");
 const createUser = require("./queries/createUser");
 const loginUser = require("./queries/loginUser");
+const reserveBook = require("./queries/reserveBook");
 const utils = require("./utils");
 const serverError = "500 server error";
+
 
 const exType = {
   html: {
@@ -117,7 +119,7 @@ const handleUserLogin = (req, res) => {
         else {
           if (result) {
 
-                const cryptoPass = utils.functions.sign(parse.password);
+            const cryptoPass = utils.functions.sign(parse.password);
 
             res.writeHead(302, [
               ["location", "/home"],
@@ -153,7 +155,7 @@ const handleHome = (res, url) => {
   });
 };
 
-const handleCheckTheCookie = ( req, res ) => {
+const handleCheckTheCookie = (req, res) => {
 
   let body = "";
   req.on("data", chunk => {
@@ -161,8 +163,6 @@ const handleCheckTheCookie = ( req, res ) => {
   });
   req.on("end", () => {
     if (body != null) {
-
-      console.log(body);
       res.writeHead(200, exType.html)
       res.end(body);
 
@@ -170,7 +170,7 @@ const handleCheckTheCookie = ( req, res ) => {
   })
 }
 
-const handlereserve = ( req, res ) => {
+const handlereserve = (req, res) => {
   let body = "";
   req.on("data", chunk => {
     body += chunk.toString();
@@ -178,7 +178,8 @@ const handlereserve = ( req, res ) => {
   req.on("end", () => {
     if (body != null) {
       body = JSON.parse(JSON.parse(JSON.stringify(body)))
-      console.log(body);
+      reserveBook(body.id, body.username,(err,result)=>{
+      });
       res.writeHead(200, exType.html)
       res.end(JSON.stringify(body));
 
@@ -194,5 +195,5 @@ module.exports = {
   login: handleUserLogin,
   checkcookie: handleCheckTheCookie,
   home: handleHome,
-  reserve:handlereserve
+  reserve: handlereserve
 };

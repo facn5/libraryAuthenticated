@@ -28,6 +28,7 @@ function updatedom(data) {
     resBtn.setAttribute('class', "resBtn");
     resBtn.id = "ko" + i;
     resBtn.value = data[i].id;
+
     resBtn.setAttribute('onclick', `resBook(${data[i].id})`);
 
     div.setAttribute('class', 'div-id');
@@ -36,7 +37,7 @@ function updatedom(data) {
     p0.innerText = data[i].shortdesc;
     p1.innerText = data[i].year + " By " + data[i].author;
 
-    resBtn.innerText = ((data[i].reserved == 1 ? "Unr" : "R") + "eserve book");
+    resBtn.innerText = ((data[i].avilable == 0 ? "Unr" : "R") + "eserve book");
 
     book.append(title);
     book.append(p0);

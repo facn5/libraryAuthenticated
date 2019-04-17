@@ -38,20 +38,18 @@ function reserveBook(id, username) {
   fetch('/reserveBook', {
       method: "POST",
       mode: "cors",
-      // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "text/plain",
-        // "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: JSON.stringify({id:id, username:username}) // body data type must match "Content-Type" header
+      body: JSON.stringify({
+        id: id,
+        username: username
+      })
     })
     .then(function(response) {
       return response.json();
     })
-    .then(function(data) {
-      console.log("here");
-    //  cb(data);
-    })
+    .then(function(data) {})
     .catch(function(error) {
       console.log(error);
       return error;
