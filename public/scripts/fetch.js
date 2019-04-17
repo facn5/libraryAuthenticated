@@ -38,7 +38,6 @@ function logIN(cb, username,password) {
   fetch('/login', {
         method: "POST",
         mode: "cors",
- // *GET, POST, PUT, DELETE, etc.
         headers: {
             "Content-Type": "text/plain",
             // "Content-Type": "application/x-www-form-urlencoded",
@@ -61,7 +60,6 @@ function createUsers(cb, name ,username,password) {
   fetch('/createUser', {
         method: "POST",
         mode: "cors",
-
         headers: {
             "Content-Type": "text/plain",
             // "Content-Type": "application/x-www-form-urlencoded",

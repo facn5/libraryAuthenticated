@@ -79,23 +79,21 @@ const handleCreateUser = (req, res) => {
 
   req.on("end", () => {
     if (body != null) {
-      const parse = querystring.parse(body);
-      utils.hash(parse.password, (err, hash) => {
-        createUser(parse.name, parse.username, hash, (err, result) => {
+      body = JSON.parse(JSON.parse(JSON.stringify(body)))
+      utils.hash(body.pass, (err, hash) => {
+        createUser(body.name, body.user, hash, (err, result) => {
           if (err) {
             if (err.message === "username_exist") {
               // console.log(res);
-              console.log(err.message);
-              res.writeHead(409);
-              res.end("username Exist");
+              res.end(JSON.stringify("Error"));
             }
             return err;
           } else {
-            res.body;
-            res.writeHead(302, {
-              location: "/"
-            });
-            res.end();
+          res.writeHead(302, [
+      ["Set-Cookie", "logged_in=true"],
+      [`Set-Cookie`, `username=${body.user}`]
+        ]);
+            res.end(JSON.stringify(result));
           }
         });
       });
@@ -110,7 +108,7 @@ const handleUserLogin = (req, res) => {
   });
   req.on("end", () => {
     if (body != null) {
-      const parse = querystring.parse(body);
+      //const parse = querystring.parse(body);
 
 body = JSON.parse(JSON.parse(JSON.stringify(body)));
 

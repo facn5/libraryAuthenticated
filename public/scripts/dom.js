@@ -7,14 +7,30 @@ function toLogin() {
   location.href = "/"
 }
 
+if( document.getElementById('signUpBtn') ) {
+
 document.getElementById('signUpBtn').addEventListener('click',function(e){
   e.preventDefault()
 createUsers(function (data){
-  console.log(data);
+
+if( data.indexOf('Done') !== -1) {
+document.getElementById('Announce').innerText = "Signed up successfully";
+document.getElementById('Announce').style.color = "green"
+
+setTimeout(function() {
+  location.href = "/home"
+},1500)
+}
+else {
+  document.getElementById('Announce').innerText = "User already exists!";
+  document.getElementById('Announce').style.color = "red"
+}
+
 },document.getElementById('name').value,document.getElementById('username').value,document.getElementById('password').value)
 
 })
 
+}
 
 
 if( document.cookie ) {
