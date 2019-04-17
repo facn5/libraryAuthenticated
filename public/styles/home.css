@@ -1,13 +1,16 @@
 body{
+  display: grid;
+  grid-template-rows: 2fr 1fr auto;
   max-width: 90%;
   text-align: center;
+  background: #666;
 }
 #books {
   display: grid;
-  grid-template-columns: 20% 20% 20%;
+  grid-template-columns: 2fr 2fr 2fr;
   grid-gap: 2% 2%;
-
-  justify-content: space-around;
+  /* align-items: center; */
+  justify-content: center;
   text-align: center;
   margin: 0 auto;
 }
