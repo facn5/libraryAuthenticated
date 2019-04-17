@@ -170,6 +170,22 @@ const handleCheckTheCookie = ( req, res ) => {
   })
 }
 
+const handlereserve = ( req, res ) => {
+  let body = "";
+  req.on("data", chunk => {
+    body += chunk.toString();
+  });
+  req.on("end", () => {
+    if (body != null) {
+      body = JSON.parse(JSON.parse(JSON.stringify(body)))
+      console.log(body);
+      res.writeHead(200, exType.html)
+      res.end(JSON.stringify(body));
+
+    }
+  })
+}
+
 module.exports = {
   page: handlePage,
   file: handlePublic,
@@ -177,5 +193,6 @@ module.exports = {
   createUser: handleCreateUser,
   login: handleUserLogin,
   checkcookie: handleCheckTheCookie,
-  home: handleHome
+  home: handleHome,
+  reserve:handlereserve
 };
