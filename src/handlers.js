@@ -112,25 +112,22 @@ const handleUserLogin = (req, res) => {
     if (body != null) {
       const parse = querystring.parse(body);
 
-      loginUser(parse.username, parse.password, (err, result) => {
-        if (err) console.log(err);
-        else {
-          if (result) {
+body = JSON.parse(JSON.parse(JSON.stringify(body)));
 
-                const cryptoPass = utils.functions.sign(parse.password);
+      loginUser(body.user, body.pass, (err, result) => {
+        if (err) {
+
+          res.writeHead(302, {location: "/"})
+          res.end()
+        }
+        else {
 
             res.writeHead(302, [
-              ["location", "/home"],
               ["Set-Cookie", "logged_in=true"],
-              [`Set-Cookie`, `username=${parse.username}`],
-              ['Set-Cookie', `password=${cryptoPass}`]
+              [`Set-Cookie`, `username=${body.user}`]
             ]);
+            res.end(result.toString());
 
-            res.end();
-          } else {
-            res.writeHead(409);
-            res.end("Invalid username or password");
-          }
         }
       });
     }
