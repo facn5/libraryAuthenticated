@@ -24,7 +24,15 @@ if (document.getElementById('signUpBtn')) {
         setTimeout(function() {
           location.href = "/home"
         }, 1500)
-      } else {
+      }else if (data.indexOf('0') !== -1) {
+        document.getElementById('Announce').innerText = "Please insert name username and password";
+        document.getElementById('Announce').style.color = "red"
+      }
+
+
+
+
+      else {
         document.getElementById('Announce').innerText = "User already exists!";
         document.getElementById('Announce').style.color = "red"
       }
