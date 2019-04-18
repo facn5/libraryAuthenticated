@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS books (
     name VARCHAR(100) NOT NULL,
     author VARCHAR(100) NOT NULL,
     year INTEGER,
+    avilable BOOLEAN,
     shortDesc VARCHAR(1000) NOT NULL
 );
 
@@ -22,11 +23,11 @@ CREATE TABLE IF NOT EXISTS users (
 
 
 
-INSERT INTO books (name, author, year, shortDesc) VALUES
-    ('Linux is a nutshell','AbuSalma',2009, 'a book describing the whole abu salma story'),
-    ('Linux is a not nutshell','Abu-Salma',2011, 'a book describing the whole abu salma story'),
-    ('Linux is a nothing','AbuSalma1',1999, 'a book describing the whole abu salma story'),
-    ('Windows is a nutshell','Abu',1965, 'a book describing the whole abu salma story');
+INSERT INTO books (name, author, year,avilable, shortDesc) VALUES
+    ('Linux is a nutshell','AbuSalma',2009, true,'a book describing the whole abu salma story'),
+    ('Linux is a not nutshell','Abu-Salma',2011, true,'a book describing the whole abu salma story'),
+    ('Linux is a nothing','AbuSalma1',1999, true,'a book describing the whole abu salma story'),
+    ('Windows is a nutshell','Abu',1965, true,'a book describing the whole abu salma story');
 
 
     INSERT INTO users (name,username,password) VALUES

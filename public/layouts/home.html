@@ -11,12 +11,18 @@
 </head>
 
 <body>
-  <h1>Welcome ${name}</h1>
-  <label for="searchInput">Looking for a book?</label>
-  <br>
-  <input type="text" name="searchInput" value="" placeholder="type...">
-  <input type="button" name="search" value="Search">
-  <button type="button" name="getBooks" onclick="getBooks(updatedom)">Get books</button>
+  <div class="">
+    <h1>Welcome ${name}</h1>
+    <h4>Book Currently reserved: </h4>
+  </div>
+  <div class="search">
+    <label for="searchInput">Looking for a book?</label>
+    <input type="text" name="searchInput" value="" placeholder="type...">
+    <input type="button" name="search" value="Search">
+    <button type="button" name="getBooks" onclick="getBooks(updatedom)">Get books</button>
+
+  </div>
+
   <div id="books">
 
   </div>

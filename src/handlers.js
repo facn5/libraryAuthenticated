@@ -4,8 +4,10 @@ const querystring = require("querystring");
 const getBooks = require("./queries/getBooks");
 const createUser = require("./queries/createUser");
 const loginUser = require("./queries/loginUser");
+const reserveBook = require("./queries/reserveBook");
 const utils = require("./utils");
 const serverError = "500 server error";
+
 
 const exType = {
   html: {
@@ -148,7 +150,7 @@ const handleHome = (res, url) => {
   });
 };
 
-const handleCheckTheCookie = ( req, res ) => {
+const handleCheckTheCookie = (req, res) => {
 
   let body = "";
   req.on("data", chunk => {
@@ -156,10 +158,25 @@ const handleCheckTheCookie = ( req, res ) => {
   });
   req.on("end", () => {
     if (body != null) {
-
-      console.log(body);
       res.writeHead(200, exType.html)
       res.end(body);
+
+    }
+  })
+}
+
+const handlereserve = (req, res) => {
+  let body = "";
+  req.on("data", chunk => {
+    body += chunk.toString();
+  });
+  req.on("end", () => {
+    if (body != null) {
+      body = JSON.parse(JSON.parse(JSON.stringify(body)))
+      reserveBook(body.id, body.username,(err,result)=>{
+      });
+      res.writeHead(200, exType.html)
+      res.end(JSON.stringify(body));
 
     }
   })
@@ -172,5 +189,6 @@ module.exports = {
   createUser: handleCreateUser,
   login: handleUserLogin,
   checkcookie: handleCheckTheCookie,
-  home: handleHome
+  home: handleHome,
+  reserve: handlereserve
 };
