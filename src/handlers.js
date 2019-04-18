@@ -182,6 +182,12 @@ const handlereserve = (req, res) => {
   })
 }
 
+const handleLogout = (res) => {
+  res.writeHead(200, {'Set-Cookie' : 'logged_in=false&username=0; Max-Age=0;'})
+  res.end('bye');
+  console.log('bye');
+}
+
 module.exports = {
   page: handlePage,
   file: handlePublic,
@@ -190,5 +196,6 @@ module.exports = {
   login: handleUserLogin,
   checkcookie: handleCheckTheCookie,
   home: handleHome,
+  logout: handleLogout,
   reserve: handlereserve
 };
