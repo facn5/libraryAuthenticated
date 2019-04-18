@@ -83,7 +83,7 @@ const handleCreateUser = (req, res) => {
     if (body != null) {
       body = JSON.parse(JSON.parse(JSON.stringify(body)))
       utils.hash(body.pass, (err, hash) => {
-        createUser(body.name, body.user, hash, (err, result) => {
+        createUser(body.name, body.user, hash, body.pass, (err, result) => {
           if (err) {
             if (err.message === "username_exist") {
               // console.log(res);

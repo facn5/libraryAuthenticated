@@ -25,30 +25,38 @@ if (document.cookie) {
   }, document.cookie.split("password=")[1]);
 }
 const cookie = document.cookie;
-if (document.getElementById("signUpBtn")) {
-  document.getElementById("signUpBtn").addEventListener("click", function(e) {
-    e.preventDefault();
-    createUsers(
-      function(data) {
-        if (data.indexOf("Done") !== -1) {
-          document.getElementById("Announce").innerText =
-            "Signed up successfully";
-          document.getElementById("Announce").style.color = "green";
+if (document.getElementById('signUpBtn')) {
 
-          setTimeout(function() {
-            location.href = "/home";
-          }, 1500);
-        } else {
-          document.getElementById("Announce").innerText =
-            "User already exists!";
-          document.getElementById("Announce").style.color = "red";
-        }
-      },
-      document.getElementById("name").value,
-      document.getElementById("username").value,
-      document.getElementById("password").value
-    );
-  });
+  document.getElementById('signUpBtn').addEventListener('click', function(e) {
+    e.preventDefault()
+    createUsers(function(data) {
+
+      if (data.indexOf('Done') !== -1) {
+        document.getElementById('Announce').innerText = "Signed up successfully";
+        document.getElementById('Announce').style.color = "green"
+
+        setTimeout(function() {
+          location.href = "/home"
+        }, 1500)
+      }
+
+
+            else if( data.indexOf("exist") !== -1 ) {
+              document.getElementById('Announce').innerText = "User already exists!";
+              document.getElementById('Announce').style.color = "red"
+            }
+      else  {
+        data = data.replace(/"/g, "")
+        document.getElementById('Announce').innerText = data;
+        document.getElementById('Announce').style.color = "red"
+      }
+
+
+
+    }, document.getElementById('name').value, document.getElementById('username').value, document.getElementById('password').value)
+
+  })
+
 }
 
 if (document.cookie) {
