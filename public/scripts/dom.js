@@ -24,10 +24,20 @@ if (document.getElementById('signUpBtn')) {
         setTimeout(function() {
           location.href = "/home"
         }, 1500)
-      } else {
-        document.getElementById('Announce').innerText = "User already exists!";
+      }
+
+
+            else if( data.indexOf("exist") !== -1 ) {
+              document.getElementById('Announce').innerText = "User already exists!";
+              document.getElementById('Announce').style.color = "red"
+            }
+      else  {
+        data = data.replace(/"/g, "")
+        document.getElementById('Announce').innerText = data;
         document.getElementById('Announce').style.color = "red"
       }
+
+
 
     }, document.getElementById('name').value, document.getElementById('username').value, document.getElementById('password').value)
 
