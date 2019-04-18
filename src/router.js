@@ -5,11 +5,39 @@ const routers = (req, res) => {
   const url = req.url;
 
   if (url === "/")
+  {
+    if( !querystring.parse(req.headers.cookie).logged_in )
     handlers.page(res, "index");
-  else if (url === "/home")
-    handlers.page(res, "home");
+
+    else {
+      res.writeHead(302, {location: "/home"})
+      res.end()
+    }
+  }
+  else if (url === "/logout" && req.method === "POST")
+  handlers.logout(res);
+  else if (url === "/home") {
+  if(  querystring.parse(req.headers.cookie).logged_in )
+  handlers.page(res, "home");
+
+else {
+  res.writeHead(302, {location: "/"})
+  res.end()
+}
+}
   else if (url === "/signup")
+  {
     handlers.page(res, "signup");
+    {
+      if( !querystring.parse(req.headers.cookie).logged_in )
+      handlers.page(res, "signup");
+
+      else {
+        res.writeHead(302, {location: "/home"})
+        res.end()
+      }
+    }
+  }
   else if (url.includes("public"))
     handlers.file(res, url);
   else if (url === "/getBooks" && req.method === "GET")
