@@ -78,6 +78,51 @@ function logIN(cb, username,password) {
   });
 }
 
+function reserveBook(id, username) {
+
+  fetch('/reserveBook', {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+      body: JSON.stringify({
+        id: id,
+        username: username
+      })
+    })
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {})
+    .catch(function(error) {
+      console.log(error);
+      return error;
+    });
+}
+
+
+function logOut( cb ) {
+  fetch('/logout', {
+        method: "POST",
+        mode: "cors",
+        headers: {
+            "Content-Type": "text/plain",
+            // "Content-Type": "application/x-www-form-urlencoded",
+        } // body data type must match "Content-Type" header
+    })
+    .then(function(response) {
+      return response;
+    })
+    .then( function(data ) {
+      cb()
+    } )
+  .catch(function(error) {
+    console.log(error);
+  });
+}
+
+
 
 function createUsers(cb, name ,username,password) {
   fetch('/createUser', {
