@@ -1,14 +1,25 @@
 const dbConnection = require('../database/db_connection');
 const userExist = require('./userExist');
 
-const createUser = (name, username, password, cb) => {
+const createUser = (name, username, password, orgPassword, cb) => {
 
 
 userExist( username, (err, exists) => {
 
 if( err ) cb(err)
 
-if( !exists && usernameValdiated(username)) {
+else if (valdiated("Your name",name) !== ""){
+  cb(null,valdiated("Your name",name))
+}
+else if (valdiated("Username",username) !== ""){
+  cb(null,valdiated("Username",username))
+}
+else if (valdiated("Password",orgPassword) !== ""){
+  cb(null,valdiated("Pasword",orgPassword))
+}
+else if( exists )
+      cb(new Error('username_exist'));
+else {
       dbConnection.query('INSERT INTO users ( name, username, password) VALUES ( $1, $2, $3 )',
         [name, username, password],
         (err, result) => {
@@ -16,24 +27,28 @@ if( !exists && usernameValdiated(username)) {
           else cb(null,"Done");
         });
     //}
-  }else if (!usernameValdiated(username)){
-    cb(null,"0")
   }
-  else {
-        cb(new Error('username_exist'));
-  }
+
   });
 }
 
-const usernameValdiated = (str) => {
+const valdiated = (type,str) => {
+
     if( str.trim() == "" )
-    return false;
-    else if ( str.trim().length < 6 )
-    return false;
+    return type+ " must not be empty";
+
+    if( type !== "Your name") {
+    if ( str.trim().length < 6 )
+    return type+ " must be atleast 6 characters";
+
     else if ( !/\d/.test(str))
-    return false
+    return type+ " must have atleast one number"
+
     else if ( /^\d+$/.test(str) )
-    return ture;
+    return type+ " must have atleast one char";
+  }
+
+    return "";
 }
 
 
